@@ -83,7 +83,7 @@ public class Product {
     }
 
     public Feature addNewFeature() {
-        Feature f = new Feature(this);
+        Feature f = new Feature();
         features.add(f);
         return f;
     }
