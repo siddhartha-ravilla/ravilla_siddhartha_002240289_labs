@@ -58,6 +58,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         tblFeatures = new javax.swing.JTable();
         btnAddFeature = new javax.swing.JButton();
         btnRemoveFeature = new javax.swing.JButton();
+        logoImg = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -127,6 +128,8 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
             }
         });
 
+        logoImg.setText("<< No Image >>");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,7 +162,9 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
                         .addComponent(lblPrice)
                         .addGap(18, 18, 18)
                         .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(logoImg)
+                .addGap(21, 21, 21))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtId, txtName});
@@ -181,8 +186,13 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
                     .addComponent(lblId)
                     .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPrice))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(logoImg)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
@@ -274,17 +284,27 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
         refreshTable();
     }//GEN-LAST:event_btnRemoveFeatureActionPerformed
 
+    
+    
     public void refreshTable() {
+
         DefaultTableModel model = (DefaultTableModel) tblFeatures.getModel();
         model.setRowCount(0);
         
         for(Feature f : product.getFeatures()){
             Object row[] = new Object[2];
-            row[0]= f;
-            row[1]= f.getValue() == null ? "Empty" : f.getValue().toString();
+            row[0] =f.getName();
+            row[1] = f.getValue() == null ? "" : f.getValue();
             model.addRow(row);
         }
-        
+        if(product.getLogoImage()!=null)
+        {
+            logoImg.setIcon(product.getLogoImage());
+        }
+        else
+        {
+            logoImg.setText("");
+        }
     }
 
 
@@ -299,6 +319,7 @@ public class ViewProductDetailJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel logoImg;
     private javax.swing.JTable tblFeatures;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
